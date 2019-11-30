@@ -8,7 +8,13 @@ public class SimpleJoiner implements Joiner{
             if (parts[i] != null) {
                 accumulation = accumulation + separator + parts[i];
             }
-        } return accumulation;
+            }
+            if (parts == null) {
+                for (int i = 0; i < base.length(); i++) {
+                    accumulation = accumulation + separator;
+                }
+            }
+            return accumulation;
         }
     }
 
