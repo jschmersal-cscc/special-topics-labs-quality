@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Steps {
-    private static WebDriver webDriver;
+    private static WebDriver driver;
 
     static {
         /*
@@ -23,34 +23,45 @@ public class Steps {
            commands to a firefox browser instance
          */
         WebDriverManager.firefoxdriver().setup();
-        webDriver = new FirefoxDriver();
+        driver = new FirefoxDriver();
+    }
+
+    @Given("^I am on the Hello World homepage$")
+    public void iAmOnTheHomepage(){
+        driver.navigate().to("http://localhost:8080");
     }
 
     /*
         Note the annotation (@When).
         This step definition triggers on 'When I go to the Hello World homepage'
      */
-    @Given("^I go to the Hello World homepage$")
-    public void whenIGoToTheHomepage() {
+    @When("^I go to the Hello World homepage$")
+    public void whenIGoToTheHompeage() {
         // this line tells the ChromeDriver to direct its chrome instance to http://localhost:8080/
-        webDriver.navigate().to("http://localhost:8080/");
+        driver.navigate().to("http://localhost:8080/");
+    }
+
+    @When("^I click the link with id \\\"(.*)\\\"")
+    public void clickTheLinkWithId(String text) {
+        driver.findElement(By.id(text)).click();
+    }
+
+    @Then("^I am taken to the hello subpage")
+    public void helloSubpageIsDisplayed() {
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        Assert.assertEquals(url, "http://localhost:8080/hello");
+
     }
 
     /*
         Gherkin/cucumber supports variables in step definitions.  In this instance, any text inside quotes
         is passed as the String argument 'text' to this method.
      */
-    @When("^I click the link with id \\\"(.*)\\\"")
-    public void clickTheLinkWithId(String text) {
-        webDriver.findElement(By.id(text)).click();
+    @Then("^\\\"(.*)\\\" should be displayed$")
+    public void textShouldBeDisplayed(String text) {
+        // By is really helpful, and has multiple ways of selecting elements (id, class, selector, xpath, etc.)
+        String output = driver.findElement(By.id("helloId")).getText();
+        Assert.assertEquals(text, output);
     }
-
-    @Then("^I am taken to the hello subpage")
-    public void helloSubpageIsDisplayed() {
-        String url = webDriver.getCurrentUrl();
-        System.out.println(url);
-        Assert.assertEquals(url, "http://localhost:8080/hello");
-
-    }
-
 }
