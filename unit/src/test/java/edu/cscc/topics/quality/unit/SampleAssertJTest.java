@@ -55,7 +55,7 @@ public class SampleAssertJTest {
 
         // AssertJ output is pretty specific, including the value of strings itself so you can see what was gong on
         // Uncomment and run this test to see what I mean
-        // assertThat(strings).hasSize(1);
+        //assertThat(strings).hasSize(1);
 
 
     }

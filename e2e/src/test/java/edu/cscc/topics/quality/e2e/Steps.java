@@ -1,6 +1,7 @@
 package edu.cscc.topics.quality.e2e;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
@@ -25,6 +26,11 @@ public class Steps {
         driver = new FirefoxDriver();
     }
 
+    @Given("^I am on the Hello World homepage$")
+    public void iAmOnTheHomepage(){
+        driver.navigate().to("http://localhost:8080");
+    }
+
     /*
         Note the annotation (@When).
         This step definition triggers on 'When I go to the Hello World homepage'
@@ -33,6 +39,19 @@ public class Steps {
     public void whenIGoToTheHompeage() {
         // this line tells the ChromeDriver to direct its chrome instance to http://localhost:8080/
         driver.navigate().to("http://localhost:8080/");
+    }
+
+    @When("^I click the link with id \\\"(.*)\\\"")
+    public void clickTheLinkWithId(String text) {
+        driver.findElement(By.id(text)).click();
+    }
+
+    @Then("^I am taken to the hello subpage")
+    public void helloSubpageIsDisplayed() {
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        Assert.assertEquals(url, "http://localhost:8080/hello");
+
     }
 
     /*

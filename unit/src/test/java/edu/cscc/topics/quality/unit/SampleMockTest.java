@@ -7,7 +7,10 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class SampleMockTest {
+public class
+
+
+SampleMockTest {
 
     @Test
     public void dontTestUsingARealDependency() {
