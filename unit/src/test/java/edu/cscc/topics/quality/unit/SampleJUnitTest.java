@@ -25,4 +25,8 @@ public class SampleJUnitTest {
         assertTrue(new SimpleJoiner().join("|", "a", "b").length() == 3);
     }
 
+    @Test
+    public void thisShouldSkipAllNullErrors() {
+        assertEquals("a.", new SimpleJoiner().join(".", "a", null));
+    }
 }
